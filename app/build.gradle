@@ -1,0 +1,71 @@
+apply plugin: 'java'
+apply plugin: 'java-library-distribution'
+
+//apply plugin: 'application'
+
+repositories {
+
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+
+    compile files("${System.properties['java.home']}/../lib/tools.jar")
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // YouTube API
+    compile 'com.google.api-client:google-api-client:1.23.0'
+
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+
+    // Google Scripts API
+    compile 'com.google.apis:google-api-services-script:v1-rev125-1.23.0'
+
+    // Blogger API
+    compile 'com.google.apis:google-api-services-blogger:v3-rev55-1.23.0'
+
+    // Youtube API
+    compile 'com.google.apis:google-api-services-youtube:v3-rev189-1.23.0'
+
+    //Swing API
+    compile 'org.jdesktop:appframework:1.0.3'
+
+    //FTP Client
+    compile 'commons-net:commons-net:3.6'
+
+//    compile project(':ErrorHandler')
+    compile 'org.jetbrains:annotations:15.0'
+}
+
+
+//mainClassName = 'youtubber'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+// Task "distZip" added by plugin "java-library-distribution":
+distZip.shouldRunAfter(build)
+
+jar {
+    // Keep jar clean:
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
+    
+    manifest {
+        attributes 'Main-Class': 'com.andrioussolutions.youtubber','Class-Path': configurations.runtime.files.collect { "lib/$it.name" }.join(' ')
+    }
+}
+
+//task deleteJar(type: Delete){
+//    delete 'libs/youtubber.jar'
+//}
+//
+//task createJar(type: Copy){
+//    from('build/‌intermediates/bundles/release/')
+//            into('libs/')
+//            include('classes.jar')
+//            rename('classes.jar', 'youtubber.jar')
+//}
+//
+//createJar.dependsOn(deleteJar, build)

@@ -1,0 +1,5 @@
+include ':app'
+//include ':ErrorHandler', ':app'
+
+//project (':ErrorHandler').projectDir = new File('C:\\Programs\\Tools\\Projects\\libs\\ErrorHandler\\ErrorHandler')
+
